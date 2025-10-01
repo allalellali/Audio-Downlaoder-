@@ -1,6 +1,6 @@
 # Audio Downloader
 
-A simple GUI application to download audio from YouTube videos using Python and yt-dlp.
+A simple GUI application to download audios using Python and yt-dlp.
 
 ## Features
 
