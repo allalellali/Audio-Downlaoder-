@@ -11,43 +11,35 @@ class YouTubeAudioDownloader:
         self.root.geometry("700x600")
         self.root.resizable(True, True)
         
-        # Set up downloads directory
         self.downloads_dir = os.path.join(os.path.expanduser("~"), "AudioDownloads")
         
-        # Create downloads directory if it doesn't exist
         if not os.path.exists(self.downloads_dir):
             os.makedirs(self.downloads_dir)
         
-        # Variables
         self.download_thread = None
         self.stop_download = False
         
         self.create_widgets()
     
     def create_widgets(self):
-        # Main frame
         main_frame = ttk.Frame(self.root, padding="10")
         main_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
         
-        # Title
         title_label = ttk.Label(main_frame, text="Audio Downloader", font=('Arial', 14, 'bold'))
         title_label.grid(row=0, column=0, columnspan=3, pady=10)
         
-        # URL input section
         ttk.Label(main_frame, text="Enter YouTube URL:").grid(row=1, column=0, sticky=tk.W, pady=5)
         
         self.url_entry = ttk.Entry(main_frame, width=50)
         self.url_entry.grid(row=2, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=5)
         self.url_entry.bind('<Return>', lambda e: self.add_url())
         
-        # Enable right-click context menu for paste
         self.create_context_menu(self.url_entry)
         
         self.add_btn = ttk.Button(main_frame, text="Add URL", command=self.add_url)
         self.add_btn.grid(row=2, column=2, padx=5)
-        
-        # URL list
-        ttk.Label(main_frame, text="URLs to download:").grid(row=3, column=0, sticky=tk.W, pady=5)
+         
+     ttk.Label(main_frame, text="URLs to download:").grid(row=3, column=0, sticky=tk.W, pady=5)
         
         list_frame = ttk.Frame(main_frame)
         list_frame.grid(row=4, column=0, columnspan=3, sticky=(tk.W, tk.E, tk.N, tk.S), pady=5)
@@ -59,10 +51,8 @@ class YouTubeAudioDownloader:
         self.url_list.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
         scrollbar.grid(row=0, column=1, sticky=(tk.N, tk.S))
         
-        # Enable right-click context menu for the listbox
         self.create_context_menu(self.url_list)
         
-        # List management buttons
         btn_frame = ttk.Frame(main_frame)
         btn_frame.grid(row=5, column=0, columnspan=3, pady=5)
         
@@ -72,7 +62,6 @@ class YouTubeAudioDownloader:
         self.clear_btn = ttk.Button(btn_frame, text="Clear All", command=self.clear_urls)
         self.clear_btn.pack(side=tk.LEFT, padx=5)
         
-        # Download directory
         ttk.Label(main_frame, text="Download folder:").grid(row=6, column=0, sticky=tk.W, pady=5)
         
         dir_frame = ttk.Frame(main_frame)
@@ -84,7 +73,6 @@ class YouTubeAudioDownloader:
         self.dir_label = ttk.Label(dir_frame, text=self.downloads_dir)
         self.dir_label.pack(side=tk.LEFT, padx=10)
         
-        # Progress bar
         ttk.Label(main_frame, text="Progress:").grid(row=8, column=0, sticky=tk.W, pady=5)
         
         self.progress_bar = ttk.Progressbar(main_frame, mode='determinate')
@@ -92,8 +80,7 @@ class YouTubeAudioDownloader:
         
         self.status_label = ttk.Label(main_frame, text="Ready to download")
         self.status_label.grid(row=10, column=0, columnspan=3, pady=5)
-        
-        # Download buttons
+         
         button_frame = ttk.Frame(main_frame)
         button_frame.grid(row=11, column=0, columnspan=3, pady=10)
         
@@ -102,14 +89,11 @@ class YouTubeAudioDownloader:
         
         self.cancel_btn = ttk.Button(button_frame, text="Cancel Download", command=self.cancel_download, state=tk.DISABLED)
         self.cancel_btn.pack(side=tk.LEFT, padx=10)
-        
-        # Log area
         ttk.Label(main_frame, text="Download Log:").grid(row=12, column=0, sticky=tk.W, pady=5)
         
         self.log_area = scrolledtext.ScrolledText(main_frame, height=10, width=70)
         self.log_area.grid(row=13, column=0, columnspan=3, sticky=(tk.W, tk.E, tk.N, tk.S), pady=5)
-        
-        # Configure grid weights
+
         self.root.columnconfigure(0, weight=1)
         self.root.rowconfigure(0, weight=1)
         main_frame.columnconfigure(0, weight=1)
@@ -124,7 +108,6 @@ class YouTubeAudioDownloader:
         context_menu.add_command(label="Copy", command=lambda: widget.event_generate('<<Copy>>'))
         context_menu.add_command(label="Paste", command=lambda: widget.event_generate('<<Paste>>'))
         
-        # Bind right-click to show context menu
         if isinstance(widget, tk.Listbox):
             widget.bind("<Button-3>", lambda e: context_menu.tk_popup(e.x_root, e.y_root))
         else:
@@ -169,7 +152,6 @@ class YouTubeAudioDownloader:
         urls = self.url_list.get(0, tk.END)
         self.stop_download = False
         
-        # Start download in a separate thread
         self.download_thread = threading.Thread(target=self.download_files, args=(urls,))
         self.download_thread.daemon = True
         self.download_thread.start()
@@ -239,7 +221,7 @@ class YouTubeAudioDownloader:
         self.root.after(0, update_label)
 
 def main():
-    # Check if yt-dlp is installed
+    
     try:
         import yt_dlp
     except ImportError:
