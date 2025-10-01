@@ -4,7 +4,7 @@ import threading
 import os
 import yt_dlp
 
-class YouTubeAudioDownloader:
+class  AudioDownloader:
     def __init__(self, root):
         self.root = root
         self.root.title("Audio Downloader")
@@ -39,7 +39,7 @@ class YouTubeAudioDownloader:
         self.add_btn = ttk.Button(main_frame, text="Add URL", command=self.add_url)
         self.add_btn.grid(row=2, column=2, padx=5)
          
-     ttk.Label(main_frame, text="URLs to download:").grid(row=3, column=0, sticky=tk.W, pady=5)
+        ttk.Label(main_frame, text="URLs to download:").grid(row=3, column=0, sticky=tk.W, pady=5)
         
         list_frame = ttk.Frame(main_frame)
         list_frame.grid(row=4, column=0, columnspan=3, sticky=(tk.W, tk.E, tk.N, tk.S), pady=5)
@@ -230,7 +230,7 @@ def main():
         return
     
     root = tk.Tk()
-    app = YouTubeAudioDownloader(root)
+    app = AudioDownloader(root)
     root.mainloop()
 
 if __name__ == "__main__":
