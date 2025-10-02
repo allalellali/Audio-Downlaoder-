@@ -19,9 +19,3 @@ A simple GUI application to download audios using Python and yt-dlp.
 - Windows: Download from FFmpeg official site
 - Linux: sudo apt install ffmpeg
 - macOS: brew install ffmpeg
-## Installation
-
-1. Clone this repository:
-```bash
-git clone https://github.com/yourusername/youtube-audio-downloader.git
-cd youtube-audio-downloader
